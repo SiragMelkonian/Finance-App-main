@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@variant dark (&:where(.dark, .dark *));
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+}
+
+body {
+  @apply container mx-auto max-w-4xl bg-white text-black dark:bg-slate-950 dark:text-slate-100;
+}
