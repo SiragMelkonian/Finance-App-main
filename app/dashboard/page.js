@@ -31,7 +31,7 @@ export default async function Page({ searchParams }) {
             }
           >
             <Suspense fallback={<TrendFallback />}>
-              <Trend type={type} range={resolvedRange} />
+              <Trend type={type} range={range} />
             </Suspense>
           </ErrorBoundary>
         ))}

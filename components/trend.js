@@ -11,7 +11,7 @@ export default function Trend({ type, amount, prevAmount }) {
   };
 
   const calcPercentageChange = (amount, prevAmount) => {
-    if (!prevAmount || !amount) return 0;
+    if (!prevAmount) return amount ? 100 : 0; // 👈 if no previous data but has current, show 100%
     return ((amount - prevAmount) / prevAmount) * 100;
   };
 
