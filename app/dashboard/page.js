@@ -54,7 +54,7 @@ export default async function Page({ searchParams }) {
       </section>
 
       <Suspense fallback={<TransactionListFallback />}>
-        <TransactionListWrapper range={resolvedRange} />
+        <TransactionListWrapper range={range} />
       </Suspense>
     </div>
   );
