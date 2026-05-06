@@ -4,18 +4,16 @@ import useServerDarkMode from "@/hooks/use-server-dark-mode";
 import { createClient } from "@/lib/supabase/server";
 import { KeyRound } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
-import SignOutButton from "@/components/sign-out-button";
+import SignOutButton from "./sign-out-button";
 import Avatar from "./avatar";
 
 export default async function PageHeader({ className }) {
-  const theme = await useServerDarkMode(); // ✅ get theme from cookie
+  const theme = await useServerDarkMode();
   const supabase = await createClient();
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  console.log(user);
-
   return (
     <header className={`flex justify-between items-center ${className}`}>
       <Link
@@ -24,7 +22,8 @@ export default async function PageHeader({ className }) {
       >
         Finance App
       </Link>
-      <div className="flex items-center space-x-1">
+
+      <div className="flex items-center">
         <DarkModeToggle defaultMode={theme} />
         {user && (
           <Link
@@ -32,7 +31,7 @@ export default async function PageHeader({ className }) {
             className={`flex items-center space-x-1 ${variants["ghost"]} ${sizes["sm"]}`}
           >
             <Avatar />
-            <span>{user?.email}</span>
+            <span>{user?.user_metadata?.fullName ?? user?.email}</span>
           </Link>
         )}
         {user && <SignOutButton />}

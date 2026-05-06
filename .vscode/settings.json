@@ -1,5 +1,7 @@
 {
   "css.lint.unknownAtRules": "ignore",
-  "workbench.colorTheme": "Dark 2026",
-  "editor.fontWeight": "bold"
+  "workbench.colorTheme": "Pitch Black",
+  "editor.fontWeight": "normal",
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 80
 }
