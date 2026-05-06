@@ -1,11 +1,11 @@
 import Link from "next/link";
 import DarkModeToggle from "./dark.mode.toggle";
 import useServerDarkMode from "@/hooks/use-server-dark-mode";
-import Button from "./button";
 import { createClient } from "@/lib/supabase/server";
-import { CircleUser, KeyRound } from "lucide-react";
+import { KeyRound } from "lucide-react";
 import { sizes, variants } from "@/lib/variants";
 import SignOutButton from "@/components/sign-out-button";
+import Avatar from "./avatar";
 
 export default async function PageHeader({ className }) {
   const theme = await useServerDarkMode(); // ✅ get theme from cookie
@@ -14,6 +14,7 @@ export default async function PageHeader({ className }) {
     data: { user },
     error,
   } = await supabase.auth.getUser();
+  console.log(user);
 
   return (
     <header className={`flex justify-between items-center ${className}`}>
@@ -25,27 +26,21 @@ export default async function PageHeader({ className }) {
       </Link>
       <div className="flex items-center space-x-1">
         <DarkModeToggle defaultMode={theme} />
-        <div>
-          {user && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex items-center space-x-1"
-            >
-              <CircleUser className="w-6 h-6" />
-              <span>{user?.email}</span>
-            </Button>
-          )}
-          {user && <SignOutButton />}
-          {!user && (
-            <Link
-              href="/login"
-              className={`${variants["ghost"]} ${sizes["sm"]}`}
-            >
-              <KeyRound className="w-6 h-6" />
-            </Link>
-          )}
-        </div>
+        {user && (
+          <Link
+            href="/dashboard/settings"
+            className={`flex items-center space-x-1 ${variants["ghost"]} ${sizes["sm"]}`}
+          >
+            <Avatar />
+            <span>{user?.email}</span>
+          </Link>
+        )}
+        {user && <SignOutButton />}
+        {!user && (
+          <Link href="/login" className={`${variants["ghost"]} ${sizes["sm"]}`}>
+            <KeyRound className="w-6 h-6" />
+          </Link>
+        )}
       </div>
     </header>
   );
