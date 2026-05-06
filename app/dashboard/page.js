@@ -18,7 +18,8 @@ export default async function Page({ searchParams }) {
       user: { user_metadata: settings },
     },
   } = await supabase.auth.getUser();
-  const range = searchParams?.range ?? settings?.defaultView ?? "last30days";
+  const params = await searchParams;
+  const range = params?.range ?? settings?.defaultView ?? "last30days";
   return (
     <div className="space-y-8">
       <section className="flex justify-between items-center">
